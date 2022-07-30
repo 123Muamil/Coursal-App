@@ -1,25 +1,40 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import Images from './APIs/CarousalApi';
 import './App.css';
-
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+   const [carousal,setCarousal]=useState(0)
+   const {title}=Images[carousal]
+   console.log(Images.length-1)
 
+   function checkNumber(number)
+   {
+     if(number>Images.length-1)
+     {
+        return 0
+     }
+     if(number<0)
+     {
+        return Images.length-1
+     }
+     return number
+   }
+   function Increment()
+   {
+      setCarousal(checkNumber(carousal+1))
+   }
+   function Decrement()
+   {
+      setCarousal(checkNumber(carousal-1))
+   }
+   return(
+    <>
+  <div className='image'>
+    <button className='increment' onClick={Increment}>Pre</button>
+    <img src={title} alt='this'/>
+    
+   <button className='decrement' onClick={Decrement}>Next</button>
+  </div>
+    </>
+   );
+}
 export default App;
